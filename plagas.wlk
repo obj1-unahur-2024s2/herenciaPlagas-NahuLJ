@@ -1,7 +1,9 @@
 class Plaga {
   const poblacion
   
-  method condicionComun() = poblacion >= 10 
+  method transmiteEnfermedades() = self.condicionComun()
+
+  method condicionComun() = poblacion >= 10
 
 }
 class PlagaCucarachas inherits Plaga {
@@ -9,13 +11,16 @@ class PlagaCucarachas inherits Plaga {
 
   method nivelDeDanio() = poblacion / 2
 
-  method transmiteEnfermedades() = pesoPromedio > 10 and self.condicionComun()
+  override method transmiteEnfermedades() = pesoPromedio > 10 and self.condicionComun()
+
+  method efectoDeAtaque(){
+
+  }
 }
 
 class PlagaPulgas inherits Plaga {
   
   method nivelDeDanio() = poblacion * 2
-
 }
 
 class PlagaGarrapatas inherits PlagaPulgas {
@@ -26,5 +31,5 @@ class PlagaMosquitos inherits Plaga {
 
   method nivelDeDanio() = poblacion
 
-  method transmiteEnfermedades() = poblacion % 3 == 0 and self.condicionComun()
+  override method transmiteEnfermedades() = poblacion % 3 == 0 and self.condicionComun()
 }

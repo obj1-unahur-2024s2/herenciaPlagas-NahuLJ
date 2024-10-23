@@ -1,6 +1,6 @@
 import elementos.*
-
-describe "group of tests for pepita" {
+import plagas.*
+describe "group of tests for elementos" {
   //Elementos
   const hogar1 = new Hogar (nivelDeMugre = 9, confortQueOfrece = 1)
   const hogar2 = new Hogar (nivelDeMugre = 15, confortQueOfrece = 40)
@@ -33,5 +33,39 @@ describe "group of tests for pepita" {
   test "El barrio1 pasa a ser copado si le agregamos la huerta1" {
     barrio1.elementos().add(huerta1)
     assert.that(barrio1.esCopado())
+  }
+}
+
+describe "group of tests for plagas" {
+  //Plagas
+  const plagaCucarachas1 = new PlagaCucarachas (poblacion = 10, pesoPromedio = 67)
+  const plagaCucarachas2 = new PlagaCucarachas (poblacion = 5, pesoPromedio = 18)
+  const plagaPulgas1 = new PlagaPulgas (poblacion = 10)
+  const plagaGarrapatas1 = new PlagaGarrapatas (poblacion = 50)
+  const plagaMosquitos = new PlagaMosquitos (poblacion = 45)
+
+  test "la plaga de cucarachas1 tiene un nivel de daño de 5 y transmite enfermedades" {
+    assert.equals(5, plagaCucarachas1.nivelDeDanio())
+    assert.that(plagaCucarachas1.transmiteEnfermedades())
+  }
+
+  test "la plaga de cucarachas2 tiene un nivel de daño de 2.5 y no transmite enfermedades" {
+    assert.equals(2.5, plagaCucarachas2.nivelDeDanio())
+    assert.notThat(plagaCucarachas2.transmiteEnfermedades())
+  }
+
+  test "la plaga de pulgas1 tiene un nivel de daño de 20 y transmite enfermedades" {
+    assert.equals(20, plagaPulgas1.nivelDeDanio())
+    assert.that(plagaPulgas1.transmiteEnfermedades())
+  }
+
+  test "la plaga de garrapatas1 tiene un nivel de daño de 100 y transmite enfermedades" {
+    assert.equals(100, plagaGarrapatas1.nivelDeDanio())
+    assert.that(plagaGarrapatas1.transmiteEnfermedades())
+  }
+
+  test "la plaga de mosquitos1 tiene un nivel de daño de 45 y transmite enfermedades" {
+    assert.equals(45, plagaMosquitos.nivelDeDanio())
+    assert.that(plagaMosquitos.transmiteEnfermedades())
   }
 }
