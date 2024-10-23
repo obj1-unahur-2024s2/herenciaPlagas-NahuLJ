@@ -1,9 +1,37 @@
-import example.pepita
+import elementos.*
 
 describe "group of tests for pepita" {
+  //Elementos
+  const hogar1 = new Hogar (nivelDeMugre = 9, confortQueOfrece = 1)
+  const hogar2 = new Hogar (nivelDeMugre = 15, confortQueOfrece = 40)
+  const huerta1 = new Huerta (capacidadProduccion = 10, nivel = nivelHuertas)
+  const huerta2 = new Huerta (capacidadProduccion = 5, nivel = nivelHuertas)
+  const nivelHuertas = 6
+  const mascota1 = new Mascota (nivelDeSalud = 300)
+  const mascota2 = new Mascota (nivelDeSalud = 560)
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  //Barrio
+  const barrio1 = new Barrio (elementos = [hogar1,mascota2,mascota1,huerta2])
+  test "el hogar 1 no es bueno, pero el 2 si lo es" {
+    assert.notThat(hogar1.esBueno())
+    assert.that(hogar2.esBueno())
   }
 
+  test "la huerta 2 es buena, pero la 1 no" {
+    assert.that(huerta1.esBueno())
+    assert.notThat(huerta2.esBueno())
+  }
+
+  test "La mascota 1 y 2 son buenas" {
+    assert.that(mascota1.esBueno())
+    assert.that(mascota2.esBueno())
+  }
+
+  test "El barrio1 no es copado" {
+    assert.notThat(barrio1.esCopado())
+  }
+  test "El barrio1 pasa a ser copado si le agregamos la huerta1" {
+    barrio1.elementos().add(huerta1)
+    assert.that(barrio1.esCopado())
+  }
 }
