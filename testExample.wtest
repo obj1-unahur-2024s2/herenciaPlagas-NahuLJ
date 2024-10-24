@@ -1,6 +1,6 @@
 import elementos.*
 import plagas.*
-describe "group of tests for elementos" {
+describe "group of tests for elementos y barrio" {
   //Elementos
   const hogar1 = new Hogar (nivelDeMugre = 9, confortQueOfrece = 1)
   const hogar2 = new Hogar (nivelDeMugre = 15, confortQueOfrece = 40)
@@ -12,6 +12,14 @@ describe "group of tests for elementos" {
 
   //Barrio
   const barrio1 = new Barrio (elementos = [hogar1,mascota2,mascota1,huerta2])
+
+  //Plagas
+  const plagaCucarachas1 = new PlagaCucarachas (poblacion = 10, pesoPromedio = 67)
+  const plagaCucarachas2 = new PlagaCucarachas (poblacion = 5, pesoPromedio = 18)
+  const plagaPulgas1 = new PlagaPulgas (poblacion = 10)
+  const plagaGarrapatas1 = new PlagaGarrapatas (poblacion = 50)
+  const plagaMosquitos = new PlagaMosquitos (poblacion = 45)
+
   test "el hogar 1 no es bueno, pero el 2 si lo es" {
     assert.notThat(hogar1.esBueno())
     assert.that(hogar2.esBueno())
@@ -33,6 +41,19 @@ describe "group of tests for elementos" {
   test "El barrio1 pasa a ser copado si le agregamos la huerta1" {
     barrio1.elementos().add(huerta1)
     assert.that(barrio1.esCopado())
+  }
+
+  test "Si la huerta2 del barrio1 recibe un ataque de la plaga de cucarachas1"{
+    barrio1.hacerQueUnElementoRecibaAtaqueDe(huerta2,plagaCucarachas1)
+    assert.equals(0,huerta2.capacidadProduccion())
+    assert.equals(11,plagaCucarachas1.poblacion())
+    assert.equals(69, plagaCucarachas1.pesoPromedio())
+  }
+
+  test "La mascota1 del barrio1 recibe un ataque de la plaga de mosquitos"{
+    barrio1.hacerQueUnElementoRecibaAtaqueDe(mascota1,plagaMosquitos)
+    assert.equals(255,mascota1.nivelDeSalud())
+    assert.equals(49.5,plagaMosquitos.poblacion())
   }
 }
 
