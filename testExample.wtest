@@ -4,9 +4,8 @@ describe "group of tests for elementos y barrio" {
   //Elementos
   const hogar1 = new Hogar (nivelDeMugre = 9, confortQueOfrece = 1)
   const hogar2 = new Hogar (nivelDeMugre = 15, confortQueOfrece = 40)
-  const huerta1 = new Huerta (capacidadProduccion = 10, nivel = nivelHuertas)
-  const huerta2 = new Huerta (capacidadProduccion = 5, nivel = nivelHuertas)
-  const nivelHuertas = 6
+  const huerta1 = new Huerta (capacidadProduccion = 10)
+  const huerta2 = new Huerta (capacidadProduccion = 5)
   const mascota1 = new Mascota (nivelDeSalud = 300)
   const mascota2 = new Mascota (nivelDeSalud = 560)
 
@@ -28,6 +27,35 @@ describe "group of tests for elementos y barrio" {
   test "la huerta 2 es buena, pero la 1 no" {
     assert.that(huerta1.esBueno())
     assert.notThat(huerta2.esBueno())
+  }
+
+  test "la huertas al inicio tienen un nivel de produccion de 5, ya que es su valor inicial" {
+    assert.equals(huerta2.nivelDeProduccion(), huerta1.nivelDeProduccion())
+    assert.equals(5,nivelDeHuertas.valor())
+    assert.equals(5,huerta1.nivelDeProduccionInicial())
+    assert.equals(5,huerta2.nivelDeProduccionInicial())
+  }
+
+  test "si se cambia el valor de produccion una huerta, tambien se cambia el de el resto" {
+    huerta1.cambiarNivelDeProduccionA(3)
+    assert.equals(huerta2.nivelDeProduccion(), huerta1.nivelDeProduccion())
+    assert.equals(3, nivelDeHuertas.valor())
+  }
+
+  test "si se cambia el valor de produccion de una huerta a 10, ninguna de las 2 huertas son buenas" {
+    huerta1.cambiarNivelDeProduccionA(10)
+    assert.equals(10, nivelDeHuertas.valor())
+    assert.equals(huerta2.nivelDeProduccion(), huerta1.nivelDeProduccion())
+    assert.notThat(huerta1.esBueno())
+    assert.notThat(huerta2.esBueno())
+  }
+
+  test "si se cambia el valor de produccion de una huerta a 1, las 2 huertas son buenas" {
+    huerta1.cambiarNivelDeProduccionA(1)
+    assert.equals(1, nivelDeHuertas.valor())
+    assert.equals(huerta2.nivelDeProduccion(), huerta1.nivelDeProduccion())
+    assert.that(huerta1.esBueno())
+    assert.that(huerta2.esBueno())
   }
 
   test "La mascota 1 y 2 son buenas" {
@@ -54,6 +82,10 @@ describe "group of tests for elementos y barrio" {
     barrio1.hacerQueUnElementoRecibaAtaqueDe(mascota1,plagaMosquitos)
     assert.equals(255,mascota1.nivelDeSalud())
     assert.equals(49.5,plagaMosquitos.poblacion())
+  }
+
+  test "Al inicio la huerta1 es buena" {
+    
   }
 }
 
