@@ -1,28 +1,22 @@
 class Plaga {
   var property poblacion
   
-  method transmiteEnfermedades() = self.condicionDeTransmision()
-
-  method condicionDeTransmision() = poblacion >= 10
+  method transmiteEnfermedades() = poblacion >= 10
 
   method sufirEfectoDeAtaque(){
-    self.efectoDeAtaque()
-  }
-
-  method efectoDeAtaque(){
     poblacion *= 1.1
   }
-
 }
+
 class PlagaCucarachas inherits Plaga {
   var property pesoPromedio 
 
   method nivelDeDanio() = poblacion / 2
 
-  override method transmiteEnfermedades() = pesoPromedio > 10 and self.condicionDeTransmision()
+  override method transmiteEnfermedades() = super() and pesoPromedio > 10 
 
   override method sufirEfectoDeAtaque(){
-    self.efectoDeAtaque()
+    super()
     pesoPromedio += 2
   }
 }
@@ -43,5 +37,5 @@ class PlagaMosquitos inherits Plaga {
 
   method nivelDeDanio() = poblacion
 
-  override method transmiteEnfermedades() = poblacion % 3 == 0 and self.condicionDeTransmision()
+  override method transmiteEnfermedades() = super() and poblacion % 3 == 0 
 }
